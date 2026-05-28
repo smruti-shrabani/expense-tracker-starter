@@ -14,14 +14,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - `src/`: Contains all source code
   - `main.jsx`: Entry point, renders the App component into the DOM
-  - `App.jsx`: Main application component containing all state and logic
+  - `App.jsx`: Main application component containing state management and coordinating components
   - `index.css`: Global styles
   - `App.css`: Component-specific styles
   - `assets/`: Static assets (e.g., SVG logos)
+  - `components/`: Reusable UI components
+    - `Summary.jsx`: Displays income, expenses, and balance statistics
+    - `TransactionForm.jsx`: Form for adding new transactions
+    - `TransactionList.jsx`: Displays transaction list with filtering capabilities
 
 ## Architecture Overview
 
-This is a single-page React application built with Vite. The application state is managed entirely within the `App.jsx` component using React hooks (`useState`). 
+This is a single-page React application built with Vite. The application follows a component-based architecture where state is managed in the `App.jsx` component, and UI logic is separated into reusable components.
 
 Key features:
 - Transaction list with income and expense tracking
@@ -32,8 +36,11 @@ Key features:
 Data flow:
 1. State variables in `App.jsx` track transactions, form inputs, and filters
 2. The `handleSubmit` function adds new transactions to state
-3. Filtered transactions are derived from state and displayed in a table
-4. Summary cards calculate totals from the full transaction list
+3. State is passed down as props to child components:
+   - `Summary` receives transactions to calculate and display statistics
+   - `TransactionForm` receives form state and submit handler for adding transactions
+   - `TransactionList` receives transactions and filter state to display filtered lists
+4. User interactions in child components trigger callbacks that update state in `App.jsx`
 
 Styling is approached with CSS modules (though currently using plain CSS files). The application has no backend persistence—transactions are stored in memory and reset on page reload.
 
