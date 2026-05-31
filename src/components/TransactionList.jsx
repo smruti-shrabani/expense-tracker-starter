@@ -2,7 +2,8 @@ const TransactionList = ({
   transactions,
   filterType, setFilterType,
   filterCategory, setFilterCategory,
-  categories
+  categories,
+  onDelete
 }) => {
   let filteredTransactions = transactions;
   if (filterType !== "all") {
@@ -36,6 +37,7 @@ const TransactionList = ({
             <th>Description</th>
             <th>Category</th>
             <th>Amount</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -46,6 +48,11 @@ const TransactionList = ({
               <td>{t.category}</td>
               <td className={t.type === "income" ? "income-amount" : "expense-amount"}>
                 {t.type === "income" ? "+" : "-"}${t.amount}
+              </td>
+              <td>
+                <button className="delete-btn" onClick={() => onDelete(t.id)} aria-label={`Delete ${t.description}`}>
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

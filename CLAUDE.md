@@ -25,7 +25,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Architecture Overview
 
-This is a single-page React application built with Vite. The application follows a component-based architecture where state is managed in the `App.jsx` component, and UI logic is separated into reusable components.
+This is a single-page React application built with Vite. The application follows a component-based architecture where state is managed in the `App.jsx` component, and UI logic is separated into reusable components. Business logic such as calculating totals is encapsulated in the `Summary` component.
 
 Key features:
 - Transaction list with income and expense tracking
@@ -37,9 +37,9 @@ Data flow:
 1. State variables in `App.jsx` track transactions, form inputs, and filters
 2. The `handleSubmit` function adds new transactions to state
 3. State is passed down as props to child components:
-   - `Summary` receives transactions to calculate and display statistics
-   - `TransactionForm` receives form state and submit handler for adding transactions
-   - `TransactionList` receives transactions and filter state to display filtered lists
+   - `Summary` receives the `transactions` prop to calculate and display statistics
+   - `TransactionForm` receives form state values (`description`, `amount`, `type`, `category`) and their setters, plus the `onSubmit` handler for adding transactions
+   - `TransactionList` receives the `transactions` prop, `filterType` and `filterCategory` values with their setters, `categories` list, and `onDelete` handler for removing transactions
 4. User interactions in child components trigger callbacks that update state in `App.jsx`
 
 Styling is approached with CSS modules (though currently using plain CSS files). The application has no backend persistence—transactions are stored in memory and reset on page reload.
